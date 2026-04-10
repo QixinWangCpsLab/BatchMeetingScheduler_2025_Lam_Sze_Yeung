@@ -1,0 +1,45 @@
+﻿{% extends "base.html" %}
+{% block title %}Create Meeting{% endblock %}
+{% block content %}
+<section class="card">
+  <h2>Create Group Demo Meeting</h2>
+  {% if request.query_params.get('msg') %}<p class="notice">{{ request.query_params.get('msg') }}</p>{% endif %}
+
+  <form method="post" action="/teacher/create" enctype="multipart/form-data" class="form-grid two">
+    <label>Meeting Title
+      <input name="title" required placeholder="COMP4913 Project Demo" />
+    </label>
+    <label>Teacher Email
+      <input type="email" name="teacher_email" required />
+    </label>
+    <label>Slot Duration (minutes)
+      <input type="number" name="duration_minutes" value="20" min="5" required />
+    </label>
+    <label>Preference Deadline
+      <input type="datetime-local" name="deadline" value="{{ tomorrow }}" required />
+    </label>
+    <label>Max Preferred Days (n)
+      <input type="number" name="date_choice_num" value="2" min="1" required />
+    </label>
+    <label>Max Slots Per Day (m)
+      <input type="number" name="slot_choice_num" value="2" min="1" required />
+    </label>
+
+    <label class="full">Schedule Lines
+      <textarea name="schedule_lines" rows="5" required>2026-04-20,09:00,12:00
+2026-04-21,14:00,17:00</textarea>
+    </label>
+
+    <label class="full">Groups by Text
+      <textarea name="groups_lines" rows="7" placeholder="group_code,group_name,contact_email,password(optional),member_ids(; separated)
+G01,Alpha Team,alpha@example.com,g01pass,s001;s002;s003"></textarea>
+    </label>
+
+    <label class="full">Groups File Upload (CSV/XLSX)
+      <input type="file" name="groups_file" accept=".csv,.txt,.xlsx" />
+    </label>
+
+    <button class="btn full" type="submit">Create Meeting and Send Group Credentials</button>
+  </form>
+</section>
+{% endblock %}

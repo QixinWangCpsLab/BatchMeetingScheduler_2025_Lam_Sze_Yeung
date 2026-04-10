@@ -1,0 +1,18 @@
+﻿{% extends "base.html" %}
+{% block title %}Meeting Created{% endblock %}
+{% block content %}
+<section class="card form-card">
+  <h2>Meeting Created Successfully</h2>
+  {% if msg %}<p class="notice">{{ msg }}</p>{% endif %}
+  <p><strong>Meeting Code:</strong> {{ meeting_code }}</p>
+  <p><strong>Teacher Password:</strong> {{ password }}</p>
+  {% if mail_summary %}
+    <p class="meta">Notification emails sent: <strong>{{ mail_summary.sent }}</strong> | failed: <strong>{{ mail_summary.failed }}</strong></p>
+  {% endif %}
+  <p class="meta">Imported groups: <strong>{{ group_count }}</strong> | generated slots: <strong>{{ slot_count }}</strong></p>
+  <div class="actions">
+    <a class="btn" href="/teacher/{{ meeting_code }}/dashboard">Open Dashboard</a>
+    <a class="btn alt" href="/teacher/login">Login Page</a>
+  </div>
+</section>
+{% endblock %}

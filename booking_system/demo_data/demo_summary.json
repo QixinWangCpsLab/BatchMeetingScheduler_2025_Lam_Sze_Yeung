@@ -1,0 +1,66 @@
+﻿{
+    "meeting_code":  "MJSBSIPNP",
+    "teacher_password":  "T9MYCR60R",
+    "dashboard_url":  "http://localhost/teacher/MJSBSIPNP/dashboard",
+    "assigned_count":  8,
+    "unassigned_count":  0,
+    "results":  [
+                    {
+                        "group_code":  "G01",
+                        "assigned":  true,
+                        "date":  "2026-04-20",
+                        "time":  "09:00 - 09:20",
+                        "round":  "1"
+                    },
+                    {
+                        "group_code":  "G02",
+                        "assigned":  true,
+                        "date":  "2026-04-20",
+                        "time":  "09:20 - 09:40",
+                        "round":  "1"
+                    },
+                    {
+                        "group_code":  "G03",
+                        "assigned":  true,
+                        "date":  "2026-04-20",
+                        "time":  "09:40 - 10:00",
+                        "round":  "1"
+                    },
+                    {
+                        "group_code":  "G04",
+                        "assigned":  true,
+                        "date":  "2026-04-20",
+                        "time":  "10:00 - 10:20",
+                        "round":  "1"
+                    },
+                    {
+                        "group_code":  "G05",
+                        "assigned":  true,
+                        "date":  "2026-04-21",
+                        "time":  "14:00 - 14:20",
+                        "round":  "1"
+                    },
+                    {
+                        "group_code":  "G06",
+                        "assigned":  true,
+                        "date":  "2026-04-21",
+                        "time":  "14:20 - 14:40",
+                        "round":  "1"
+                    },
+                    {
+                        "group_code":  "G07",
+                        "assigned":  true,
+                        "date":  "2026-04-21",
+                        "time":  "14:40 - 15:00",
+                        "round":  "1"
+                    },
+                    {
+                        "group_code":  "G08",
+                        "assigned":  true,
+                        "date":  "2026-04-21",
+                        "time":  "15:00 - 15:20",
+                        "round":  "1"
+                    }
+                ],
+    "generated_at":  "2026-04-08T10:49:01"
+}

@@ -1,0 +1,19 @@
+﻿{% extends "base.html" %}
+{% block title %}Group Result{% endblock %}
+{% block content %}
+<section class="card form-card">
+  <h2>Group Result - {{ group.group_name }}</h2>
+  <p class="meta">Meeting {{ meeting.title }} | Group {{ group.group_code }}</p>
+
+  {% if result %}
+    <p><strong>Date:</strong> {{ result[0] }}</p>
+    <p><strong>Time:</strong> {{ result[1] }} - {{ result[2] }}</p>
+    <p><strong>Round:</strong> {{ result[3] }}</p>
+  {% else %}
+    <p class="notice">No slot assigned yet.</p>
+  {% endif %}
+
+  <p><strong>Members:</strong> {% if members %}{{ members | map(attribute='member_id') | join(', ') }}{% else %}(No members listed){% endif %}</p>
+  <a class="btn alt" href="/group/{{ meeting.meeting_code }}/{{ group.group_code }}/preference">Back to Preference</a>
+</section>
+{% endblock %}

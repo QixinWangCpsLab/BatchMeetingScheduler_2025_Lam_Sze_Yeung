@@ -1,0 +1,20 @@
+﻿{% extends "base.html" %}
+{% block title %}Teacher Login{% endblock %}
+{% block content %}
+<section class="login-shell">
+  <section class="card form-card login-card">
+    <h2>Teacher Login</h2>
+    <p class="meta">Sign in with meeting code and teacher password to manage allocation rounds.</p>
+    {% if msg %}<p class="notice">{{ msg }}</p>{% endif %}
+    <form method="post" action="/teacher/login" class="form-grid one">
+      <label>Meeting Code
+        <input name="meeting_code" required placeholder="e.g. MG6B1M7XA" />
+      </label>
+      <label>Teacher Password
+        <input type="password" name="password" required placeholder="e.g. TPQA9HDFZ" />
+      </label>
+      <button class="btn" type="submit">Open Dashboard</button>
+    </form>
+  </section>
+</section>
+{% endblock %}

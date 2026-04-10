@@ -1,0 +1,101 @@
+﻿{% extends "base.html" %}
+{% block title %}Teacher Dashboard{% endblock %}
+{% block content %}
+<section class="card">
+  <h2>{{ meeting.title }}</h2>
+  <p class="meta">Meeting Code <strong>{{ meeting.meeting_code }}</strong> | Round <strong>{{ meeting.round_index }}</strong> | Deadline <strong>{{ meeting.deadline }}</strong></p>
+  {% if msg %}<p class="notice">{{ msg }}</p>{% endif %}
+
+  <div class="stats">
+    <div><span>Total Groups</span><strong>{{ stats.total_groups }}</strong></div>
+    <div><span>Scheduled</span><strong>{{ stats.scheduled_groups }}</strong></div>
+    <div><span>Submitted (Round)</span><strong>{{ stats.submitted_current }}</strong></div>
+    <div><span>Free Slots</span><strong>{{ stats.free_slots }}</strong></div>
+  </div>
+
+  <div class="actions split">
+    <form method="post" action="/teacher/{{ meeting.meeting_code }}/allocate">
+      <button class="btn" type="submit">Run FCFS Allocation</button>
+    </form>
+
+    <form method="post" action="/teacher/{{ meeting.meeting_code }}/next-round" class="inline-grid">
+      <input type="datetime-local" name="new_deadline" />
+      <textarea name="extra_schedule_lines" rows="3" placeholder="2026-04-22,09:00,11:00"></textarea>
+      <button class="btn alt" type="submit">Start Next Round</button>
+    </form>
+  </div>
+</section>
+
+<section class="card">
+  <h3>Result Management</h3>
+  <div class="filter-bar">
+    <label>Group Search
+      <input id="filter-group" placeholder="e.g. G01 / Alpha" />
+    </label>
+    <label>Round
+      <select id="filter-round">
+        <option value="">All</option>
+        {% for r in result_rows %}
+          <option value="{{ r[5] }}">Round {{ r[5] }}</option>
+        {% endfor %}
+      </select>
+    </label>
+    <label>Status
+      <select id="filter-status">
+        <option value="">All</option>
+        <option value="scheduled">Scheduled</option>
+        <option value="unscheduled">Unscheduled</option>
+      </select>
+    </label>
+    <button class="btn alt" type="button" id="filter-reset">Reset</button>
+  </div>
+
+  <table class="table" id="results-table">
+    <thead><tr><th>Group</th><th>Name</th><th>Date</th><th>Time</th><th>Round</th></tr></thead>
+    <tbody>
+    {% for r in result_rows %}
+      <tr data-group="{{ r[0] | lower }} {{ r[1] | lower }}" data-round="{{ r[5] }}" data-status="scheduled">
+        <td>{{ r[0] }}</td><td>{{ r[1] }}</td><td>{{ r[2] }}</td><td>{{ r[3] }} - {{ r[4] }}</td><td>{{ r[5] }}</td>
+      </tr>
+    {% else %}
+      <tr><td colspan="5">No allocations yet.</td></tr>
+    {% endfor %}
+    </tbody>
+  </table>
+</section>
+
+<section class="card">
+  <h3>Group Registry</h3>
+  <table class="table" id="groups-table">
+    <thead><tr><th>Code</th><th>Name</th><th>Members</th><th>Scheduled</th><th>Last Submit</th></tr></thead>
+    <tbody>
+    {% for g in groups %}
+      <tr data-group="{{ g.group_code | lower }} {{ g.group_name | lower }}" data-status="{% if g.scheduled %}scheduled{% else %}unscheduled{% endif %}">
+        <td>{{ g.group_code }}</td>
+        <td>{{ g.group_name }}</td>
+        <td>{{ member_counts.get(g.id, 0) }}</td>
+        <td>{% if g.scheduled %}<span class="pill ok">Yes</span>{% else %}<span class="pill no">No</span>{% endif %}</td>
+        <td>{{ g.last_submitted_at if g.last_submitted_at else '-' }}</td>
+      </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+</section>
+
+<section class="card">
+  <h3>All Slots</h3>
+  <table class="table">
+    <thead><tr><th>Date</th><th>Time</th><th>Status</th><th>Round Created</th></tr></thead>
+    <tbody>
+    {% for slot in slots %}
+      <tr>
+        <td>{{ slot.day }}</td>
+        <td>{{ slot.start_time }} - {{ slot.end_time }}</td>
+        <td>{% if slot.scheduled %}<span class="pill ok">Used</span>{% else %}<span class="pill no">Free</span>{% endif %}</td>
+        <td>{{ slot.round_index }}</td>
+      </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+</section>
+{% endblock %}

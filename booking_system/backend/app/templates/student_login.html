@@ -1,0 +1,20 @@
+﻿{% extends "base.html" %}
+{% block title %}Student Login{% endblock %}
+{% block content %}
+<section class="form-wrap reveal">
+  <h1>Student Login</h1>
+  {% if msg %}<div class="notice">{{ msg }}</div>{% endif %}
+  <form method="post" action="/student/login" class="stack">
+    <label>Meeting Code
+      <input name="meeting_code" required />
+    </label>
+    <label>Student ID
+      <input name="student_id" required />
+    </label>
+    <label>Password
+      <input name="password" required />
+    </label>
+    <button class="btn" type="submit">Enter Preference Form</button>
+  </form>
+</section>
+{% endblock %}

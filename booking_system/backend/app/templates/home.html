@@ -1,0 +1,23 @@
+﻿{% extends "base.html" %}
+{% block title %}Home{% endblock %}
+{% block content %}
+<section class="hero">
+  <div>
+    <h1>Group-Based Reservation for Project Demos</h1>
+    <p>Built for course demo sessions: team preference collection, fair FCFS allocation, and multi-round scheduling in a 3-tier dockerized system.</p>
+    <div class="actions">
+      <a class="btn" href="/teacher/create">Create Session</a>
+      <a class="btn alt" href="/group/login">Group Login</a>
+    </div>
+  </div>
+  <div class="hero-card">
+    <h3>Workflow</h3>
+    <ol>
+      <li>Teacher sets schedule + imports groups.</li>
+      <li>Each group submits ranked slot preferences.</li>
+      <li>System allocates by FCFS after deadline.</li>
+      <li>Unscheduled groups enter next round.</li>
+    </ol>
+  </div>
+</section>
+{% endblock %}

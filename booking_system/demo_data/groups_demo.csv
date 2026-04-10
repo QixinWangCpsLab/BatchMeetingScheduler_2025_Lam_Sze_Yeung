@@ -1,0 +1,9 @@
+﻿group_code,group_name,contact_email,password,members
+G01,Alpha Team,alpha@example.com,g01pass,s001;s002;s003
+G02,Beta Team,beta@example.com,g02pass,s004;s005;s006
+G03,Gamma Team,gamma@example.com,g03pass,s007;s008;s009
+G04,Delta Team,delta@example.com,g04pass,s010;s011;s012
+G05,Epsilon Team,eps@example.com,g05pass,s013;s014;s015
+G06,Zeta Team,zeta@example.com,g06pass,s016;s017;s018
+G07,Eta Team,eta@example.com,g07pass,s019;s020;s021
+G08,Theta Team,theta@example.com,g08pass,s022;s023;s024

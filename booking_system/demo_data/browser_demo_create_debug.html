@@ -1,0 +1,119 @@
+<html lang="en"><head></head><body>﻿
+
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Create Meeting</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;600;700&amp;family=Literata:wght@700&amp;display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/static/style.css">
+
+
+  <header class="header">
+    <div class="wrap masthead">
+      <div>
+        <div class="school">Polytechnic Teaching Portal</div>
+        <div class="dept">Department of Computing | Semester Project Demo Scheduling</div>
+      </div>
+      <div class="term">AY 2025/26 Semester 2</div>
+    </div>
+    <div class="wrap nav">
+      <a href="/" class="logo">Online Reservation Hub</a>
+      <div class="links">
+        <a href="/teacher/create">Create</a>
+        <a href="/teacher/login">Teacher</a>
+        <a href="/group/login">Group</a>
+        <a href="/health">Health</a>
+      </div>
+    </div>
+  </header>
+
+  
+  
+
+  <div class="wrap portal-layout">
+    
+    <aside class="sidebar">
+      <div class="side-block">
+        <h4>Portal Guide</h4>
+        <ol class="side-list">
+          <li>Teacher creates meeting and publishes credentials.</li>
+          <li>Each group submits ranked preferences before deadline.</li>
+          <li>Teacher runs FCFS allocation after deadline.</li>
+          <li>Unscheduled groups enter next round if needed.</li>
+        </ol>
+      </div>
+
+      <div class="side-block">
+        <h4>Status Legend</h4>
+        <div class="legend-row"><span class="pill ok">Yes / Used</span><span>Assigned or occupied</span></div>
+        <div class="legend-row"><span class="pill no">No / Free</span><span>Pending or available</span></div>
+      </div>
+
+      <div class="side-block">
+        <h4>Submission Rules</h4>
+        <div class="meta-item">Priority list must follow n-days and m-slots/day limits.</div>
+        <div class="meta-item">Submission time affects FCFS order.</div>
+        <div class="meta-item">Keep meeting code and password confidential.</div>
+      </div>
+
+      <div class="side-block compact">
+        <h4>Course Context</h4>
+        <div class="meta-item">Course: COMP4913</div>
+        <div class="meta-item">Use Case: Project Demo</div>
+        <div class="meta-item">Mode: Group Reservation</div>
+      </div>
+    </aside>
+    
+
+    <main class="content-area">
+      
+<section class="card">
+  <h2>Create Group Demo Meeting</h2>
+  <p class="notice">time data '\ufeff2026-04-20' does not match format '%Y-%m-%d'</p>
+
+  <form method="post" action="/teacher/create" enctype="multipart/form-data" class="form-grid two">
+    <label>Meeting Title
+      <input name="title" required="" placeholder="COMP4913 Project Demo">
+    </label>
+    <label>Teacher Email
+      <input type="email" name="teacher_email" required="">
+    </label>
+    <label>Slot Duration (minutes)
+      <input type="number" name="duration_minutes" value="20" min="5" required="">
+    </label>
+    <label>Preference Deadline
+      <input type="datetime-local" name="deadline" value="2026-04-07T23:59" required="">
+    </label>
+    <label>Max Preferred Days (n)
+      <input type="number" name="date_choice_num" value="2" min="1" required="">
+    </label>
+    <label>Max Slots Per Day (m)
+      <input type="number" name="slot_choice_num" value="2" min="1" required="">
+    </label>
+
+    <label class="full">Schedule Lines
+      <textarea name="schedule_lines" rows="5" required="">2026-04-20,09:00,12:00
+2026-04-21,14:00,17:00</textarea>
+    </label>
+
+    <label class="full">Groups by Text
+      <textarea name="groups_lines" rows="7" placeholder="group_code,group_name,contact_email,password(optional),member_ids(; separated)
+G01,Alpha Team,alpha@example.com,g01pass,s001;s002;s003"></textarea>
+    </label>
+
+    <label class="full">Groups File Upload (CSV/XLSX)
+      <input type="file" name="groups_file" accept=".csv,.txt,.xlsx">
+    </label>
+
+    <button class="btn full" type="submit">Create Meeting and Send Group Credentials</button>
+  </form>
+</section>
+
+    </main>
+  </div>
+
+  <script src="/static/app.js"></script>
+
+</body></html>

@@ -1,0 +1,71 @@
+﻿{% extends "base.html" %}
+{% block title %}Group Preference{% endblock %}
+{% block content %}
+<section class="card">
+  <h2>{{ meeting.title }} - {{ group.group_name }}</h2>
+  <p class="meta">Group Code <strong>{{ group.group_code }}</strong> | Round <strong>{{ meeting.round_index }}</strong></p>
+  <p class="meta">Deadline {{ meeting.deadline }} | Rules: {{ max_days }} days, {{ max_per_day }} slots/day, {{ max_total }} total</p>
+  {% if msg %}<p class="notice">{{ msg }}</p>{% endif %}
+  <p><a href="/group/{{ meeting.meeting_code }}/{{ group.group_code }}/result">View Group Result</a></p>
+
+  <div class="member-box">
+    <strong>Members:</strong>
+    {% if members %}
+      {{ members | map(attribute='member_id') | join(', ') }}
+    {% else %}
+      (No members listed)
+    {% endif %}
+  </div>
+</section>
+
+<section class="card">
+{% if editable %}
+  <form method="post" action="/group/{{ meeting.meeting_code }}/{{ group.group_code }}/preference" id="pref-form">
+    <input type="hidden" name="slot_ids" id="slot_ids_input" value="{{ selected_slot_ids | join(',') }}" />
+
+    <div class="picker" id="slot-picker" data-max-days="{{ max_days }}" data-max-per-day="{{ max_per_day }}" data-max-total="{{ max_total }}">
+      <div>
+        <h3>Available Slots</h3>
+        {% for day, slots in grouped_slots.items() %}
+          <div class="day-block">
+            <h4>{{ day }}</h4>
+            <div class="slot-list">
+              {% for slot in slots %}
+                <button type="button" class="slot-btn" data-slot-id="{{ slot.id }}" data-day="{{ slot.day }}" data-time="{{ slot.start_time }} - {{ slot.end_time }}">
+                  <span>#{{ slot.id }}</span><span>{{ slot.start_time }} - {{ slot.end_time }}</span><span>Add</span>
+                </button>
+              {% endfor %}
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+      <div>
+        <h3>Ranked Preferences</h3>
+        <ul id="ranked-list" class="ranked-list"></ul>
+      </div>
+    </div>
+
+    <div class="actions">
+      <button class="btn" type="submit">Save Preference</button>
+      <button class="btn alt" type="button" id="clear-rank">Clear</button>
+    </div>
+  </form>
+{% else %}
+  <p class="notice">Form locked (deadline passed or group already scheduled).</p>
+{% endif %}
+</section>
+
+{% if old_pref_rows %}
+<section class="card">
+  <h3>Saved Preference</h3>
+  <table class="table">
+    <thead><tr><th>Priority</th><th>Date</th><th>Time</th></tr></thead>
+    <tbody>
+    {% for slot in old_pref_rows %}
+      <tr><td>{{ loop.index }}</td><td>{{ slot.day }}</td><td>{{ slot.start_time }} - {{ slot.end_time }}</td></tr>
+    {% endfor %}
+    </tbody>
+  </table>
+</section>
+{% endif %}
+{% endblock %}
